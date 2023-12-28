@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const router = require('./router-edicion-y-lectura')
 
-const tasks = [
+const tareas = [
     {
         id: "123456",
         isCompleted: false,
@@ -27,8 +28,8 @@ const tasks = [
 ];
 
 
-app.get('/tasks', (req, res) => {
-    res.json(tasks);
+app.get('/tareas', (req, res) => {
+    res.json(tareas);
 });
 
 
