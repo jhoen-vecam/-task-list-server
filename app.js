@@ -1,38 +1,29 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const port = 3000;
-const router = require('./router-edicion-y-lectura')
+const PORT = 3000;
+const editRouter = require('./edit-router');
+const viewRouter = require('./view-router');
+const {tareas}=require('./datos')
 
-const tareas = [
-    {
-        id: "123456",
-        isCompleted: false,
-        description: "Walk the dog",
-    },
-    {
-        id: "389012",
-        isCompleted: true,
-        description: "Do the laundry",
-    },
-    {
-        id: "284512",
-        isCompleted: true,
-        description: "bathe the cat",
-    },
-    {
-        id: "754012",
-        isCompleted: false,
-        description: "cook",
-    },
-   
-];
+app.use(express.json());
 
-
-app.get('/tareas', (req, res) => {
-    res.json(tareas);
+app.get("/tareas-existentes", (req, res) => {
+    res.status(404).send("Not found");
 });
 
+app.get('/', (req, res) => {
+    res.json(tareas);
+    console.log('estan viendo todas las tareas')
+});
 
-app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
+app.use('/editar', editRouter, () => {
+    console.log("editando la lista de tareas");
+});
+
+app.use('/ver', viewRouter, () => {
+    console.log("están viendo la lista de tareas");
+});
+
+app.listen(PORT, () => {
+    console.log("servidor en funcionamiento");
 });
