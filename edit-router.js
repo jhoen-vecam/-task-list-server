@@ -74,7 +74,7 @@ router.delete('/:id', (req, res) => {
     tareas.splice(tareaIndex, 1);
 
     // Devolver un mensaje indicando que la tarea fue eliminada con éxito
-    res.status(200).json({ message: `Tarea "${tareaEliminada.description}" eliminada con éxito` });
+    res.status(200).json({ message: `Tarea "${tareaEliminada.description}" eliminada con éxito!!` });
 });
 
 
