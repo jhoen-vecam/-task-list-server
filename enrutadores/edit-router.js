@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { tareas } = require("./datos");
+const { tareas } = require("../datos");
 
 // Obtener todas las tareas
 router.get('/', (req, res) => {
@@ -76,7 +76,6 @@ router.delete('/:id', (req, res) => {
     // Devolver un mensaje indicando que la tarea fue eliminada con éxito
     res.status(200).json({ message: `Tarea "${tareaEliminada.description}" eliminada con éxito!!` });
 });
-
 
 // Manejador de errores
 router.use((err, req, res) => {

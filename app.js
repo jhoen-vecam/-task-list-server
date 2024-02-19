@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
-const editRouter = require('./edit-router');
-const viewRouter = require('./view-router');
+require ("dotenv").config();
+const PORT = process.env.PORT;
+const editRouter = require('./enrutadores/edit-router');
+const viewRouter = require('./enrutadores/view-router');
 const {tareas}=require('./datos')
+const loginjwt = require('./enrutadores/loginjwt');
 
 app.use(express.json());
 
@@ -24,6 +26,10 @@ app.use('/ver', viewRouter, () => {
     console.log("están viendo la lista de tareas");
 });
 
-app.listen(PORT, () => {
-    console.log("servidor en funcionamiento");
-});
+app.use("/auth", loginjwt,()=> {
+    console.log("están viendo la lista de tareas");})
+    
+    app.listen(PORT, () => { 
+        console.log("corriendo servidor");
+    });
+    
