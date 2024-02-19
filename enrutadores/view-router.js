@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { tareas } = require("./datos");
-
+const { tareas } = require("../datos");
 
 // Ruta para manejar la solicitud GET a "/tareas-completas"
 router.get('/tareas-completas', (req, res) => {
