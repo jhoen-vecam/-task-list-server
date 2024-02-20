@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { tareas } = require("../datos");
+const app = express();
+app.use(express.json());
 
 // Obtener todas las tareas
 router.get('/', (req, res) => {
@@ -39,7 +41,7 @@ router.post("/crear-tarea", (req, res, next) => {
 
 // Editar una tarea
 router.put('/:id', (req, res) => {
-    const tareaId = parseInt(req.params.id);
+    const tareaId = (req.params.id);
     const tareaActualizada = req.body;
 
     // Encontrar la tarea con el ID correspondiente
@@ -60,8 +62,8 @@ router.put('/:id', (req, res) => {
 
 // Eliminar una tarea
 router.delete('/:id', (req, res) => {
-    const tareaId = parseInt(req.params.id);
-    const tareaIndex = tareas.findIndex(tarea => tarea.id === tareaId);
+    const tareaId = req.params.id;
+    const tareaIndex = tareas.findIndex(tarea => tarea.id === tarea.id);
     
     if (tareaIndex === -1) {
         return res.status(404).json({ message: 'Tarea no encontrada' });
