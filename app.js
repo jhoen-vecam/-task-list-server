@@ -9,15 +9,6 @@ const loginjwt = require('./enrutadores/loginjwt');
 
 app.use(express.json());
 
-app.get("/tareas-existentes", (req, res) => {
-    res.status(404).send("Not found");
-});
-
-app.get('/', (req, res) => {
-    res.json(tareas);
-    console.log('estan viendo todas las tareas')
-});
-
 app.use('/editar', editRouter, () => {
     console.log("editando la lista de tareas");
 });
