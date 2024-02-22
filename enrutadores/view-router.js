@@ -2,6 +2,15 @@ const { Router } = require("express");
 const router = Router();
 const { tareas } = require("../datos");
 
+router.get("/", (req, res) => {
+    if ( tareas.length > 0) {
+        res.status(200).json({message : "  LISTA DE:  ",tareas});
+    } else {
+        res.status(404).json({ message: "No hay tareas" });
+    }
+    console.log('Están viendo todas las tareas');
+});
+
 // Ruta para manejar la solicitud GET a "/tareas-completas"
 router.get('/tareas-completas', (req, res) => {
     // Filtrar las tareas completadas

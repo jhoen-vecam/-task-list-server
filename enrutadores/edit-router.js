@@ -4,11 +4,6 @@ const { tareas } = require("../datos");
 const app = express();
 app.use(express.json());
 
-// Obtener todas las tareas
-router.get('/', (req, res) => {
-    res.json(tareas);
-});
-
 // Crear una nueva tarea
 router.post("/crear-tarea", (req, res, next) => {
     // console.log(req.body);
@@ -41,18 +36,24 @@ router.post("/crear-tarea", (req, res, next) => {
 
 // Editar una tarea
 router.put('/:id', (req, res) => {
-    const tareaId = (req.params.id);
-    const tareaActualizada = req.body;
+    const tareaId = req.params.id;
+    const { description, completed } = req.body;
 
     // Encontrar la tarea con el ID correspondiente
-    const tareaIndex = tareas.findIndex(tarea => tarea.id === tareaId);
+    const tareaActualizada = tareas.find(tarea => tarea.id === tareaId);
 
     // Verificar si se encontró la tarea
-    if (tareaIndex !== -1) {
-        // Actualizar la tarea
-        tareas[tareaIndex] = { ...tareas[tareaIndex], ...tareaActualizada };
+    if (tareaActualizada) {
+        // Verificar si la descripción está presente en el cuerpo de la solicitud
+        if (!description) {
+            return res.status(400).json({ error: 'Falta el atributo "description" para editar la tarea.' });
+        }
 
-        return res.status(200).json({ message: 'Tarea actualizada', tarea: tareas[tareaIndex] });
+        // Actualizar la tarea con los nuevos valores de descripción y completado
+        tareaActualizada.description = description;
+        tareaActualizada.completed = completed || false;
+
+        return res.status(200).json({ message: 'Tarea actualizada', tarea: tareaActualizada });
     }
 
     // Si no se encontró la tarea, devolver un mensaje de error
