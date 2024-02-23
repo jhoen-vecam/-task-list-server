@@ -4,7 +4,7 @@ const { tareas } = require("../datos");
 
 router.get("/", (req, res) => {
     if ( tareas.length > 0) {
-        res.status(200).json({message : "  LISTA DE:  ",tareas});
+        res.status(200).json({message : "  LISRA DE : ",tareas});
     } else {
         res.status(404).json({ message: "No hay tareas" });
     }
